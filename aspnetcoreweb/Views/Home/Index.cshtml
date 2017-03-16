@@ -3,8 +3,19 @@
 }
 
 <app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>
-
-<script src="~/dist/vendor.js" asp-append-version="true"></script>
-@section scripts {
-    <script src="~/dist/main-client.js" asp-append-version="true"></script>
-}
+<environment names="Development">
+    <script src="~/dist/vendor.js" asp-append-version="true"></script>
+    @section scripts {
+        <script src="~/dist/main-client.js" asp-append-version="true"></script>
+    }
+</environment>
+<environment names="Production">
+    <script 
+        src="https://aspnetcore-dest.azureedge.net/dist/vendor.js"
+        asp-fallback-src="~/dist/vendor.js" asp-append-version="true"></script>
+    @section scripts {
+        <script 
+            src="https://aspnetcore-dest.azureedge.net/dist/main-client.js"
+            asp-fallback-src="~/dist/main-client.js" asp-append-version="true"></script>
+    }    
+</environment>
